@@ -13,15 +13,15 @@ function displayResults(responseJson) {
       $("#results-list").append(
         `<li>
          <p>U.S Senator ${responseJson.officials[i].name}</p>
-
-        </li>`
+        </li>
+        <li><img src=${responseJson.officials[i].photoUrl}></li>`
       );
     } else {
       $("#results-list").append(
         `<li>
-         <p>U.S. Representative ${responseJson.officials[i].name}</p>
-
-        </li>`
+            <p>U.S. Representative ${responseJson.officials[i].name}</p>
+         </li>
+         <li><img src=${responseJson.officials[i].photoUrl}></li>`
       );
     }
   }
