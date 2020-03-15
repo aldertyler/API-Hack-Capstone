@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elected Representatives Search</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css"
+      integrity="sha256-7VVaJ5GDwFQiLIc+eNksQLUSSY5JNZtqv9o2BI8UGYg="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+  </head>
+  <body>
+    <h1>Elected Representatives</h1>
+    <p id="description">
+      Enter your address to search for your elected representatives.
+    </p>
+    <form role="form">
+      <input
+        id="js-address-input"
+        type="text"
+        placeholder="Enter your full address here."
+        required
+      />
+      <button role="button" type="submit">Search</button>
+    </form>
+
+    <p id="js-error-message" class="error-message"></p>
+
+    <main role="main">
+      <section id="results" class="hidden">
+        <h2>Your Representatives</h2>
+        <ul id="results-list"></ul>
+      </section>
+    </main>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="index.js"></script>
+</html>
