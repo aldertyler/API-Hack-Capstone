@@ -26,8 +26,12 @@ h2 {
   margin-bottom: 20px;
 }
 
-li {
+.full-name {
   margin: 10px;
+}
+
+.photo {
+  margin-bottom: 30px;
 }
 
 .hidden {

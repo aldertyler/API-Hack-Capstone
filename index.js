@@ -1,31 +1,53 @@
 "use strict";
+//const proPubKey = "kR35gMi94d0O1yc4noLkECK7szDsmmCF8csX1cWX";
+// const options = {
+//   headers: new Headers({
+//     "X-Api-Key": proPubKey
+//   })
+// };
 
 const apiKey = "AIzaSyAJr43LsKjJhyOQ53CYdNgTqoC8slox5to";
 
 function displayResults(responseJson) {
   console.log(responseJson);
-
   $("#results-list").empty();
-
   for (let i = 0; i < responseJson.officials.length; i++) {
     console.log(responseJson.officials[i].name);
-    if (i < 2) {
-      $("#results-list").append(
-        `<li>
-         <p>U.S Senator ${responseJson.officials[i].name}</p>
-        </li>
-        <li><img src=${responseJson.officials[i].photoUrl}></li>`
-      );
-    } else {
-      $("#results-list").append(
-        `<li>
-            <p>U.S. Representative ${responseJson.officials[i].name}</p>
-         </li>
-         <li><img src=${responseJson.officials[i].photoUrl}></li>`
-      );
-    }
-  }
 
+    $("#results-list").append(
+      `<li class="full-name">
+         ${i < 2 ? "U.S. Senator" : "U.S. Representative"} ${
+        responseJson.officials[i].name
+      }
+        </li>
+        <li class="photo"><img src=${responseJson.officials[i].photoUrl} ></li>
+        <li class="address">
+            <ul>
+                <li>${
+                  responseJson.officials[i].address
+                    ? responseJson.officials[i].address[0].line1
+                    : ""
+                },</li>
+                <li>${
+                  responseJson.officials[i].address
+                    ? responseJson.officials[i].address[0].city
+                    : ""
+                },</li>
+                <li>${
+                  responseJson.officials[i].address
+                    ? responseJson.officials[i].address[0].state
+                    : ""
+                },</li>
+                <li>${
+                  responseJson.officials[i].address
+                    ? responseJson.officials[i].address[0].zip
+                    : ""
+                }</li>
+            </ul>   
+        </li>
+        <li class="phone">${responseJson.officials[i].phones}</li>`
+    );
+  }
   $("#results").removeClass("hidden");
 }
 
@@ -46,6 +68,14 @@ function getResults(userAddress) {
       $("#js-error-message").text(`Something went wrong: ${err.message}`);
     });
 }
+
+//makes a request for the most recent 20 votes in both chambers
+function getRecentVotes() {}
+//iterate through response from getRecentVotes and for each role call number, makes a request for the specific role call vote
+function getIndividualVotesList() {}
+//returns the specific reps position from the response from getInidividualVotesList
+function getIndividualVotes() {}
+function displayVotingRecord() {}
 
 function watchForm() {
   $("form").submit(event => {
