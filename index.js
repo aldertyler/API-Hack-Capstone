@@ -68,15 +68,33 @@ function getResults(userAddress) {
       $("#js-error-message").text(`Something went wrong: ${err.message}`);
     });
 }
-
+//---------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------//
 //makes a request for the most recent 20 votes in both chambers
-function getRecentVotes() {}
+function getRecentVotes() {
+  const url = "https://api.propublica.org/congress/v1/both/votes/recent.json";
+  fetch(url)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
+    .then(responseJson => getIndividualVotesList(responseJson))
+    .catch(err => {
+      $("#js-error-message").text(`Something went wrong: ${err.message}`);
+    });
+}
 //iterate through response from getRecentVotes and for each role call number, makes a request for the specific role call vote
-function getIndividualVotesList() {}
+function getIndividualVotesList(responseJson) {
+  const url = "";
+}
 //returns the specific reps position from the response from getInidividualVotesList
 function getIndividualVotes() {}
 function displayVotingRecord() {}
 
+//---------------------------------------------------------------------------------------------//
+//------------------------------------------------------------------------------------------//
 function watchForm() {
   $("form").submit(event => {
     event.preventDefault();
