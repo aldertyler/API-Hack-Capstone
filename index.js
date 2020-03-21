@@ -10,6 +10,8 @@ const options = {
   })
 };
 
+let voteArray = [];
+
 function displayResults(responseJson) {
   console.log(responseJson);
   $("#results-list").empty();
@@ -114,25 +116,27 @@ function getRollCallVote(responseJson, repName) {
 
   console.log("ran getRollCallVote" + repName);
 }
+
 //returns the specific reps position from the response from getRollCallVote
 
+//todo: create an array that stores the vote positions
+//create the quiz app feature
+//instead of updating and pushing voteOBject just saty voteArray[i] = {object keys and values}
 function getIndividualVotes(responseJson, repName) {
+  // console.log(responseJson);
   for (let i = 0; i < responseJson.results.votes.vote.positions.length; i++) {
-    //console.log(repName);
-    //console.log(responseJson.results.votes.vote.positions[i].name);
     if (repName.trim() == responseJson.results.votes.vote.positions[i].name) {
-      console.log("match");
+      voteArray.push({
+        id: responseJson.results.votes.vote.bill.number,
+        title: responseJson.results.votes.vote.bill.title,
+        description: responseJson.results.votes.vote.description,
+        position: responseJson.results.votes.vote.positions[i].vote_position
+      });
     }
+    console.log(voteArray);
+    console.log("ran getIndividualResults");
   }
-
-  console.log("ran getIndividualResults");
 }
-
-//display the results
-function displayVotingRecord(obj) {
-  $("#record").append(`<p>${obj}</p>`);
-}
-
 //---------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
 function watchForm() {
@@ -150,7 +154,7 @@ function watchButton(i) {
 
     let repName = $(`#name.${i}`).text();
     console.log(repName);
-
+    voteArray = [];
     getRecentVotes(repName);
   });
 }
