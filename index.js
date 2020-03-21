@@ -17,10 +17,9 @@ function displayResults(responseJson) {
     console.log(responseJson.officials[i].name);
 
     $("#results-list").append(
-      `<li class="full-name">
-         ${i < 2 ? "U.S. Senator" : "U.S. Representative"} ${
-        responseJson.officials[i].name
-      }
+      `<li class="title">
+         ${i < 2 ? "U.S. Senator" : "U.S. Representative"}</li>
+         <li id="name" class="${i}"> ${responseJson.officials[i].name}
         </li>
         <li class="photo"><img src=${responseJson.officials[i].photoUrl} ></li>
         <li class="address">
@@ -48,13 +47,12 @@ function displayResults(responseJson) {
             </ul>   
         </li>
         <li class="phone">${responseJson.officials[i].phones}</li>
-        <button id="get-record" class="${
-          responseJson.officials[i].name
-        }">Get Voting Record</button>`
+        <button id="get-record" class="${i}">Get Voting Record</button>
+        <section id="record"></section>`
     );
+    watchButton(i);
   }
   $("#results").removeClass("hidden");
-  watchButton();
 }
 
 function getResults(userAddress) {
@@ -77,10 +75,8 @@ function getResults(userAddress) {
 //---------------------------------------------------------------------------------------------------//
 //---------------------------------------------------------------------------------------------------//
 
-//you need an event listener that triggers the following functions
-
 //makes a request for the most recent 20 votes in both chambers
-function getRecentVotes() {
+function getRecentVotes(repName) {
   const votesUrl =
     "https://api.propublica.org/congress/v1/both/votes/recent.json";
   fetch(votesUrl, options)
@@ -90,15 +86,15 @@ function getRecentVotes() {
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => getRollCallVote(responseJson))
+    .then(responseJson => getRollCallVote(responseJson, repName))
     .catch(err => {
       $("#js-error-message").text(`Something went wrong: ${err.message}`);
     });
-  console.log("ran getRecentVotes");
+  console.log("ran getRecentVotes" + repName);
 }
 
 //itereate through the response from getRecentVotes and return the individual votes for each roll call number
-function getRollCallVote(responseJson) {
+function getRollCallVote(responseJson, repName) {
   for (let i = 0; i < responseJson.results.votes.length; i++) {
     const rollCallUrl = `https://api.propublica.org/congress/v1/${responseJson.results.votes[i].congress}/${responseJson.results.votes[i].chamber}/sessions/${responseJson.results.votes[i].session}/votes/${responseJson.results.votes[i].roll_call}.json`;
 
@@ -110,17 +106,32 @@ function getRollCallVote(responseJson) {
         }
         throw new Error(response.statusText);
       })
-      .then(responseJson => getIndividualVotes(responseJson))
+      .then(responseJson => getIndividualVotes(responseJson, repName))
       .catch(err => {
         $("#js-error-message").text(`Something went wrong: ${err.message}`);
       });
   }
-  console.log("ran getRollCallVote");
+
+  console.log("ran getRollCallVote" + repName);
 }
-//returns the specific reps position from the response from getInidividualVotesList
-function getIndividualVotes() {}
+//returns the specific reps position from the response from getRollCallVote
+
+function getIndividualVotes(responseJson, repName) {
+  for (let i = 0; i < responseJson.results.votes.vote.positions.length; i++) {
+    //console.log(repName);
+    //console.log(responseJson.results.votes.vote.positions[i].name);
+    if (repName.trim() == responseJson.results.votes.vote.positions[i].name) {
+      console.log("match");
+    }
+  }
+
+  console.log("ran getIndividualResults");
+}
+
 //display the results
-function displayVotingRecord() {}
+function displayVotingRecord(obj) {
+  $("#record").append(`<p>${obj}</p>`);
+}
 
 //---------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
@@ -133,10 +144,14 @@ function watchForm() {
   });
 }
 
-function watchButton() {
-  $("#get-record").click(event => {
+function watchButton(i) {
+  $(`#get-record.${i}`).click(event => {
     event.preventDefault();
-    getRecentVotes();
+
+    let repName = $(`#name.${i}`).text();
+    console.log(repName);
+
+    getRecentVotes(repName);
   });
 }
 
