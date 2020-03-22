@@ -11,12 +11,18 @@ const options = {
 };
 
 let voteArray = [];
+let userArray = [];
+let questions = [];
+let currentQuestion = 0;
 
 function displayResults(responseJson) {
   console.log(responseJson);
   $("#results-list").empty();
   for (let i = 0; i < responseJson.officials.length; i++) {
     console.log(responseJson.officials[i].name);
+    if (i === 3) {
+      break;
+    }
 
     $("#results-list").append(
       `<li class="title">
@@ -117,11 +123,10 @@ function getRollCallVote(responseJson, repName) {
   console.log("ran getRollCallVote" + repName);
 }
 
-//returns the specific reps position from the response from getRollCallVote
+//returns the specific reps position from the response from getRollCallVote and adds the results to the voteArray
 
-//todo: create an array that stores the vote positions
-//create the quiz app feature
-//instead of updating and pushing voteOBject just saty voteArray[i] = {object keys and values}
+//to do :create the quiz app feature
+
 function getIndividualVotes(responseJson, repName) {
   // console.log(responseJson);
   for (let i = 0; i < responseJson.results.votes.vote.positions.length; i++) {
@@ -137,10 +142,11 @@ function getIndividualVotes(responseJson, repName) {
     console.log("ran getIndividualResults");
   }
 }
+
 //---------------------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------------------//
 function watchForm() {
-  $("form").submit(event => {
+  $("#form").submit(event => {
     event.preventDefault();
     const userAddress = $("#js-address-input").val();
     console.log(userAddress);
@@ -151,12 +157,70 @@ function watchForm() {
 function watchButton(i) {
   $(`#get-record.${i}`).click(event => {
     event.preventDefault();
-
     let repName = $(`#name.${i}`).text();
     console.log(repName);
     voteArray = [];
     getRecentVotes(repName);
+    generateModal();
   });
 }
+
+function watchStartButton() {
+  $(".start").click(event => {
+    event.preventDefault();
+    $(".start-screen").hide();
+    generateQuestions();
+    showQuestion();
+    $(".question-screen").show();
+    watchNextButton();
+  });
+}
+
+function watchNextButton() {
+  $(".next").click(event => {
+    event.preventDefault();
+    currentQuestion++;
+    showQuestion();
+  });
+}
+
+function generateQuestions() {
+  for (let i = 0; i < voteArray.length; i++) {
+    if (voteArray[i].id == undefined) {
+      questions.push(`How would you vote on "${voteArray[i].description}"?`);
+    } else {
+      questions.push(
+        `How would you vote on ${voteArray[i].id}: ${voteArray[i].title}?`
+      );
+    }
+  }
+}
+
+function showQuestion() {
+  $("#question-text").text(questions[currentQuestion]);
+}
+
+function generateModal() {
+  // // Get the modal
+  let modal = document.getElementById("myModal");
+  // // Get the <span> element that closes the modal
+  let span = document.getElementsByClassName("close")[0];
+  // open the modal
+  modal.style.display = "block";
+  // // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  };
+  // // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+  watchStartButton();
+}
+
+// // ----------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------
 
 $(watchForm);
