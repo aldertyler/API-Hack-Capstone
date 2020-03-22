@@ -13,9 +13,9 @@
     <link rel="stylesheet" type="text/css" href="main.css" />
   </head>
   <body>
-    <h1>Elected Representatives</h1>
+    <h1>Members of Congress</h1>
     <p id="description">
-      Enter your address to search for your elected representatives.
+      Enter your address to search for your members of Congress.
     </p>
     <form role="form" id="form">
       <input
@@ -49,15 +49,16 @@
           </section>
 
           <section class="question-screen hidden">
-            <h2 id="question-text">question goes here</h2>
+            <h2 id="question-text"></h2>
+            <p class="more-info"></p>
             <form>
               <fieldset>
                 <div>
-                  <input type="radio" name="radio" value="yes" />
+                  <input type="radio" name="radio" value="Yes" required />
                   <label>Yes</label>
                 </div>
                 <div>
-                  <input type="radio" name="radio" value="no" />
+                  <input type="radio" name="radio" value="No" required />
                   <label>No</label>
                 </div>
               </fieldset>
@@ -65,8 +66,8 @@
             </form>
           </section>
 
-          <section class="results">
-            <h2></h2>
+          <section class="results hidden">
+            <h2>Your Results</h2>
           </section>
         </div>
       </div>

@@ -14,6 +14,7 @@ let voteArray = [];
 let userArray = [];
 let questions = [];
 let currentQuestion = 0;
+let score = 0;
 
 function displayResults(responseJson) {
   console.log(responseJson);
@@ -55,8 +56,8 @@ function displayResults(responseJson) {
             </ul>   
         </li>
         <li class="phone">${responseJson.officials[i].phones}</li>
-        <button id="get-record" class="${i}">How do you compare</button>
-        <section id="record"></section>`
+        <button id="get-record" class="${i}">How do you compare</button>      
+        `
     );
     watchButton(i);
   }
@@ -110,7 +111,6 @@ function getRollCallVote(responseJson, repName) {
       .then(response => {
         if (response.ok) {
           return response.json();
-          //console.log(response.json);
         }
         throw new Error(response.statusText);
       })
@@ -125,16 +125,14 @@ function getRollCallVote(responseJson, repName) {
 
 //returns the specific reps position from the response from getRollCallVote and adds the results to the voteArray
 
-//to do :create the quiz app feature
-
 function getIndividualVotes(responseJson, repName) {
-  // console.log(responseJson);
   for (let i = 0; i < responseJson.results.votes.vote.positions.length; i++) {
     if (repName.trim() == responseJson.results.votes.vote.positions[i].name) {
       voteArray.push({
         id: responseJson.results.votes.vote.bill.number,
         title: responseJson.results.votes.vote.bill.title,
         description: responseJson.results.votes.vote.description,
+        url: responseJson.results.votes.vote.url,
         position: responseJson.results.votes.vote.positions[i].vote_position
       });
     }
@@ -165,31 +163,44 @@ function watchButton(i) {
   });
 }
 
-function watchStartButton() {
-  $(".start").click(event => {
-    event.preventDefault();
-    $(".start-screen").hide();
-    generateQuestions();
-    showQuestion();
-    $(".question-screen").show();
-    watchNextButton();
-  });
-}
+//watch start button
+$(".start").click(event => {
+  event.preventDefault();
+  $(".start-screen").hide();
+  generateQuestions();
+  showQuestion();
+  $(".question-screen").show();
+});
 
-function watchNextButton() {
-  $(".next").click(event => {
-    event.preventDefault();
-    let selectedAnswer = $("input[name=radio]:checked").val();
-    userArray.push(selectedAnswer);
-    currentQuestion++;
-    $("input:radio[name=radio]").prop("checked", false);
-    showQuestion();
-    if (currentQuestion >= voteArray.length) {
-      $(".question-screen").hide();
-      //do results math here or in a function that you call here
-      $(".results").show();
+// watch next button
+$(".next").click(event => {
+  event.preventDefault();
+
+  let selectedAnswer = $("input[name=radio]:checked").val();
+  userArray.push(selectedAnswer);
+  currentQuestion++;
+  console.log(currentQuestion);
+  $("input:radio[name=radio]").prop("checked", false);
+
+  if (currentQuestion >= voteArray.length) {
+    $(".question-screen").hide();
+    generateResults();
+    console.log("ran generateResults");
+    $(".results").show();
+  }
+  showQuestion();
+});
+
+function generateResults() {
+  for (let i = 0; i < voteArray.length; i++) {
+    if (userArray[i] == voteArray[i].position) {
+      score++;
     }
-  });
+  }
+  let percentage = Math.floor((score / voteArray.length) * 100);
+  $(".results").append(
+    `<p class="percentage">You are ${percentage}% aligned with this member of Congress.</p>`
+  );
 }
 
 function generateQuestions() {
@@ -198,14 +209,18 @@ function generateQuestions() {
       questions.push(`How would you vote on "${voteArray[i].description}"?`);
     } else {
       questions.push(
-        `How would you vote on ${voteArray[i].id}: ${voteArray[i].title}?`
+        `How would you vote on ${voteArray[i].id}: ${voteArray[i].description}?`
       );
     }
   }
 }
-
+//<a href="${voteArray[currentQuestion].url}" target="blank">For more information</a>`
 function showQuestion() {
-  $("#question-text").text(questions[currentQuestion]);
+  $("#question-text").text(`${questions[currentQuestion]}`);
+  $(".more-info").text("");
+  $(".more-info").append(
+    `<a href="${voteArray[currentQuestion].url}" target="blank">For more information</a>`
+  );
 }
 
 function generateModal() {
@@ -218,14 +233,29 @@ function generateModal() {
   // // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     modal.style.display = "none";
+    voteArray = [];
+    userArray = [];
+    questions = [];
+    currentQuestion = 0;
+    score = 0;
+    $(".results").hide();
+    $(".start-screen").show();
+    $(".percentage").text("");
   };
-  // // When the user clicks anywhere outside of the modal, close it
+  // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
+      voteArray = [];
+      userArray = [];
+      questions = [];
+      currentQuestion = 0;
+      score = 0;
+      $(".results").hide();
+      $(".start-screen").show();
+      $(".percentage").text("");
     }
   };
-  watchStartButton();
 }
 
 // // ----------------------------------------------------------------------------------------------------------
