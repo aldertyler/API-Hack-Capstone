@@ -55,7 +55,7 @@ function displayResults(responseJson) {
             </ul>   
         </li>
         <li class="phone">${responseJson.officials[i].phones}</li>
-        <button id="get-record" class="${i}">Get Voting Record</button>
+        <button id="get-record" class="${i}">How do you compare</button>
         <section id="record"></section>`
     );
     watchButton(i);
@@ -179,8 +179,16 @@ function watchStartButton() {
 function watchNextButton() {
   $(".next").click(event => {
     event.preventDefault();
+    let selectedAnswer = $("input[name=radio]:checked").val();
+    userArray.push(selectedAnswer);
     currentQuestion++;
+    $("input:radio[name=radio]").prop("checked", false);
     showQuestion();
+    if (currentQuestion >= voteArray.length) {
+      $(".question-screen").hide();
+      //do results math here or in a function that you call here
+      $(".results").show();
+    }
   });
 }
 
