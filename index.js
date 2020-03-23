@@ -218,9 +218,11 @@ function generateQuestions() {
 function showQuestion() {
   $("#question-text").text(`${questions[currentQuestion]}`);
   $(".more-info").text("");
-  $(".more-info").append(
-    `<a href="${voteArray[currentQuestion].url}" target="blank">For more information</a>`
-  );
+  if (currentQuestion < voteArray.length) {
+    $(".more-info").append(
+      `<a href="${voteArray[currentQuestion].url}" target="blank">For more information</a>`
+    );
+  }
 }
 
 function generateModal() {
