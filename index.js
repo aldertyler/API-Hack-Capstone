@@ -15,6 +15,7 @@ let userArray = [];
 let questions = [];
 let currentQuestion = 0;
 let score = 0;
+let display = false;
 
 function displayResults(responseJson) {
   console.log(responseJson);
@@ -26,7 +27,8 @@ function displayResults(responseJson) {
     }
 
     $("#results-list").append(
-      `<li class="title">
+      `<ul class="reps">
+      <li class="title">
          ${i < 2 ? "U.S. Senator" : "U.S. Representative"}</li>
          <li id="name" class="${i}"> ${responseJson.officials[i].name}
         </li>
@@ -56,7 +58,8 @@ function displayResults(responseJson) {
             </ul>   
         </li>
         <li class="phone">${responseJson.officials[i].phones}</li>
-        <button id="get-record" class="${i}">How do you compare</button>      
+        <button id="get-record" class="${i}">How do you compare</button> 
+        </ul>     
         `
     );
     watchButton(i);
@@ -81,8 +84,6 @@ function getResults(userAddress) {
       $("#js-error-message").text(`Something went wrong: ${err.message}`);
     });
 }
-//---------------------------------------------------------------------------------------------------//
-//---------------------------------------------------------------------------------------------------//
 
 //makes a request for the most recent 20 votes in both chambers
 function getRecentVotes(repName) {
@@ -99,14 +100,17 @@ function getRecentVotes(repName) {
     .catch(err => {
       $("#js-error-message").text(`Something went wrong: ${err.message}`);
     });
-  console.log("ran getRecentVotes" + repName);
+  //console.log("ran getRecentVotes" + repName);
 }
 
 //itereate through the response from getRecentVotes and return the individual votes for each roll call number
 function getRollCallVote(responseJson, repName) {
   for (let i = 0; i < responseJson.results.votes.length; i++) {
     const rollCallUrl = `https://api.propublica.org/congress/v1/${responseJson.results.votes[i].congress}/${responseJson.results.votes[i].chamber}/sessions/${responseJson.results.votes[i].session}/votes/${responseJson.results.votes[i].roll_call}.json`;
-
+    if (responseJson.results.votes.length - 1 === i) {
+      display = true;
+      console.log("loop ends");
+    }
     fetch(rollCallUrl, options)
       .then(response => {
         if (response.ok) {
@@ -120,7 +124,7 @@ function getRollCallVote(responseJson, repName) {
       });
   }
 
-  console.log("ran getRollCallVote" + repName);
+  //console.log("ran getRollCallVote" + repName);
 }
 
 //returns the specific reps position from the response from getRollCallVote and adds the results to the voteArray
@@ -136,13 +140,12 @@ function getIndividualVotes(responseJson, repName) {
         position: responseJson.results.votes.vote.positions[i].vote_position
       });
     }
-    console.log(voteArray);
-    console.log("ran getIndividualResults");
+
+    //console.log(voteArray);
+    //console.log("ran getIndividualResults");
   }
 }
 
-//---------------------------------------------------------------------------------------------//
-//------------------------------------------------------------------------------------------//
 function watchForm() {
   $("#form").submit(event => {
     event.preventDefault();
@@ -155,9 +158,11 @@ function watchForm() {
 function watchButton(i) {
   $(`#get-record.${i}`).click(event => {
     event.preventDefault();
+
     let repName = $(`#name.${i}`).text();
     console.log(repName);
     voteArray = [];
+
     getRecentVotes(repName);
     generateModal();
   });
@@ -173,7 +178,7 @@ $(".start").click(event => {
 });
 
 // watch next button
-$(".next").click(event => {
+$(".question-screen").submit(event => {
   event.preventDefault();
 
   let selectedAnswer = $("input[name=radio]:checked").val();
@@ -226,7 +231,6 @@ function showQuestion() {
 }
 
 function generateModal() {
-  // // Get the modal
   let modal = document.getElementById("myModal");
   // // Get the <span> element that closes the modal
   let span = document.getElementsByClassName("close")[0];
@@ -242,6 +246,7 @@ function generateModal() {
     score = 0;
     $(".results").hide();
     $(".start-screen").show();
+    $(".question-screen").hide();
     $(".percentage").text("");
   };
   // When the user clicks anywhere outside of the modal, close it
@@ -255,12 +260,14 @@ function generateModal() {
       score = 0;
       $(".results").hide();
       $(".start-screen").show();
+      $(".question-screen").hide();
       $(".percentage").text("");
     }
   };
+  if ((display = true)) {
+    $(".start").show();
+    $(".loader").hide();
+  }
 }
-
-// // ----------------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------
 
 $(watchForm);

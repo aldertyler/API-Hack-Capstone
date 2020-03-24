@@ -32,7 +32,11 @@
     <main role="main">
       <section id="results" class="hidden">
         <h2>Your Representatives</h2>
-        <ul id="results-list"></ul>
+        <p>
+          Click 'How do you compare' to find out how you align politically with
+          a particular member of Congress.
+        </p>
+        <div id="results-list"></div>
       </section>
 
       <!-- The Modal -->
@@ -45,9 +49,9 @@
               The following questions will ask you how you would have voted on a
               particular piece of legislation. Answer "Yes" or "No".
             </p>
-            <button class="start">Start</button>
+            <button class="start hidden">Start</button>
           </section>
-
+          <div class="loader"></div>
           <section class="question-screen hidden">
             <h2 id="question-text"></h2>
             <p class="more-info"></p>
@@ -61,8 +65,9 @@
                   <input type="radio" name="radio" value="No" required />
                   <label>No</label>
                 </div>
+                <input type="submit" value="next" />
               </fieldset>
-              <button class="next">Next</button>
+              <!-- <button class="next">Next</button> -->
             </form>
           </section>
 
