@@ -15,10 +15,9 @@ let userArray = [];
 let questions = [];
 let currentQuestion = 0;
 let score = 0;
-let display = false;
 
 function displayResults(responseJson) {
-  console.log(responseJson);
+  // console.log(responseJson);
   $("#results-list").empty();
   for (let i = 0; i < responseJson.officials.length; i++) {
     console.log(responseJson.officials[i].name);
@@ -85,7 +84,7 @@ function getResults(userAddress) {
     });
 }
 
-//makes a request for the most recent 20 votes in both chambers
+//makes a request for the most recent votes in both chambers
 function getRecentVotes(repName) {
   const votesUrl =
     "https://api.propublica.org/congress/v1/both/votes/recent.json";
@@ -100,17 +99,14 @@ function getRecentVotes(repName) {
     .catch(err => {
       $("#js-error-message").text(`Something went wrong: ${err.message}`);
     });
-  //console.log("ran getRecentVotes" + repName);
+  console.log("ran getRecentVotes" + repName);
 }
 
 //itereate through the response from getRecentVotes and return the individual votes for each roll call number
 function getRollCallVote(responseJson, repName) {
   for (let i = 0; i < responseJson.results.votes.length; i++) {
     const rollCallUrl = `https://api.propublica.org/congress/v1/${responseJson.results.votes[i].congress}/${responseJson.results.votes[i].chamber}/sessions/${responseJson.results.votes[i].session}/votes/${responseJson.results.votes[i].roll_call}.json`;
-    if (responseJson.results.votes.length - 1 === i) {
-      display = true;
-      console.log("loop ends");
-    }
+
     fetch(rollCallUrl, options)
       .then(response => {
         if (response.ok) {
@@ -123,8 +119,6 @@ function getRollCallVote(responseJson, repName) {
         $("#js-error-message").text(`Something went wrong: ${err.message}`);
       });
   }
-
-  //console.log("ran getRollCallVote" + repName);
 }
 
 //returns the specific reps position from the response from getRollCallVote and adds the results to the voteArray
@@ -139,13 +133,17 @@ function getIndividualVotes(responseJson, repName) {
         url: responseJson.results.votes.vote.url,
         position: responseJson.results.votes.vote.positions[i].vote_position
       });
-    }
 
-    //console.log(voteArray);
-    //console.log("ran getIndividualResults");
+      //console.log(voteArray);
+      //console.log("ran getIndividualResults");
+    }
+    // if (voteArray.length - 1 === i) {
+    //   console.log("finished");
+    //   $(".loader").hide();
+    //   $(".start").show();
+    // }
   }
 }
-
 function watchForm() {
   $("#form").submit(event => {
     event.preventDefault();
@@ -158,13 +156,15 @@ function watchForm() {
 function watchButton(i) {
   $(`#get-record.${i}`).click(event => {
     event.preventDefault();
-
     let repName = $(`#name.${i}`).text();
     console.log(repName);
     voteArray = [];
-
     getRecentVotes(repName);
     generateModal();
+    setTimeout(function() {
+      $(".loader").hide();
+      $(".start").show();
+    }, 8000);
   });
 }
 
@@ -173,8 +173,13 @@ $(".start").click(event => {
   event.preventDefault();
   $(".start-screen").hide();
   generateQuestions();
+
+  $(".loader").show();
+  setTimeout(function() {
+    $(".loader").hide();
+    $(".question-screen").show();
+  }, 5000);
   showQuestion();
-  $(".question-screen").show();
 });
 
 // watch next button
@@ -218,8 +223,12 @@ function generateQuestions() {
       );
     }
   }
+  console.log(questions);
+  console.log(voteArray);
+  console.log(questions.length);
+  console.log(voteArray.length);
 }
-//<a href="${voteArray[currentQuestion].url}" target="blank">For more information</a>`
+
 function showQuestion() {
   $("#question-text").text(`${questions[currentQuestion]}`);
   $(".more-info").text("");
@@ -248,6 +257,8 @@ function generateModal() {
     $(".start-screen").show();
     $(".question-screen").hide();
     $(".percentage").text("");
+    $(".start").hide();
+    $(".loader").show();
   };
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
@@ -262,12 +273,10 @@ function generateModal() {
       $(".start-screen").show();
       $(".question-screen").hide();
       $(".percentage").text("");
+      $(".start").hide();
+      $(".loader").show();
     }
   };
-  if ((display = true)) {
-    $(".start").show();
-    $(".loader").hide();
-  }
 }
 
 $(watchForm);
