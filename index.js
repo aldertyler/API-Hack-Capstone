@@ -15,6 +15,7 @@ let userArray = [];
 let questions = [];
 let currentQuestion = 0;
 let score = 0;
+let rep = "";
 
 function displayResults(responseJson) {
   // console.log(responseJson);
@@ -31,7 +32,9 @@ function displayResults(responseJson) {
          ${i < 2 ? "U.S. Senator" : "U.S. Representative"}</li>
          <li id="name" class="${i}"> ${responseJson.officials[i].name}
         </li>
-        <li class="photo"><img src=${responseJson.officials[i].photoUrl} ></li>
+        <li class="photo"><img src=${responseJson.officials[i].photoUrl} alt="${
+        responseJson.officials[i].name
+      }" style="width: 175px; height: 175px;"></li>
         <li class="address">
             <ul>
                 <li>${
@@ -57,7 +60,10 @@ function displayResults(responseJson) {
             </ul>   
         </li>
         <li class="phone">${responseJson.officials[i].phones}</li>
-        <button id="get-record" class="${i}">How do you compare</button> 
+        <button id="get-record" class="${i}">How do you compare</button>
+        <li class="${responseJson.officials[i].name
+          .replace(/\s/g, "")
+          .replace(/\./g, "")}"></li>
         </ul>     
         `
     );
@@ -143,6 +149,7 @@ function getIndividualVotes(responseJson, repName) {
     //   $(".start").show();
     // }
   }
+  rep = repName.replace(/\s/g, "").replace(/\./g, "");
 }
 function watchForm() {
   $("#form").submit(event => {
@@ -211,6 +218,7 @@ function generateResults() {
   $(".results").append(
     `<p class="percentage">You are ${percentage}% aligned with this member of Congress.</p>`
   );
+  $(`.${rep}`).text(`${percentage}% Aligned`);
 }
 
 function generateQuestions() {

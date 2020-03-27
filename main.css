@@ -2,13 +2,48 @@
   box-sizing: border-box;
 }
 
-body {
+main {
+  font-family: "Inria Sans", sans-serif;
+  background-color: #284a6d;
   padding: 30px;
+  color: #041436;
+}
+
+header {
+  background-color: #041436;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
-  font-size: 2em;
+  font-family: "Abril Fatface", cursive;
+  color: #6e88a3;
+  font-size: 2.5em;
+}
+
+.italics {
+  font-style: italic;
+}
+
+/* .bold {
+  font-weight: bold;
+} */
+
+body {
+  background-color: #284a6d;
+}
+
+h2 {
+  text-align: center;
   margin-bottom: 20px;
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+main {
+  font-size: 1.2em;
 }
 
 input {
@@ -21,15 +56,22 @@ button {
   margin-bottom: 15px;
 }
 
-h2 {
-  font-size: 1.3em;
-  margin-bottom: 20px;
+.rep-results {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5em;
 }
 
 .reps {
-  border: 1px solid gray;
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 1px solid gray; */
+  background-color: #456687;
   margin: 10px;
   padding: 10px;
+  border-radius: 2%;
 }
 
 .full-name {
@@ -40,9 +82,21 @@ h2 {
   margin-bottom: 30px;
 }
 
-.hidden,
-.hidden-two {
+li.phone {
+  margin-bottom: 15px;
+}
+
+.hidden {
   display: none;
+}
+
+footer {
+  background-color: #041436;
+  color: #6e88a3;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
 }
 
 /* The Modal (background) */
@@ -98,5 +152,14 @@ h2 {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .rep-results {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* align-items: center; */
   }
 }

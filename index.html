@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Elected Representatives Search</title>
     <link
+      href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inria+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css"
       integrity="sha256-7VVaJ5GDwFQiLIc+eNksQLUSSY5JNZtqv9o2BI8UGYg="
@@ -13,30 +21,33 @@
     <link rel="stylesheet" type="text/css" href="main.css" />
   </head>
   <body>
-    <h1>Members of Congress</h1>
-    <p id="description">
-      Enter your address to search for your members of Congress.
-    </p>
-    <form role="form" id="form">
-      <input
-        id="js-address-input"
-        type="text"
-        placeholder="Enter your full address here."
-        required
-      />
-      <button role="button" type="submit">Search</button>
-    </form>
-
-    <p id="js-error-message" class="error-message"></p>
-
+    <header>
+      <h1>Members of Congress</h1>
+    </header>
     <main role="main">
-      <section id="results" class="hidden">
-        <h2>Your Representatives</h2>
-        <p>
+      <section class="rep-search">
+        <p id="description" class="italics bold">
+          Enter your address to search for your members of Congress.
+        </p>
+        <form role="form" id="form">
+          <input
+            id="js-address-input"
+            type="text"
+            placeholder="Enter your full address here."
+            required
+          />
+          <button role="button" type="submit">Search</button>
+        </form>
+
+        <p id="js-error-message" class="error-message"></p>
+      </section>
+      <section id="results" class=" hidden">
+        <h2 class="your-reps bold">Your Representatives</h2>
+        <p class="italics bold">
           Click 'How do you compare' to find out how you align politically with
           a particular member of Congress.
         </p>
-        <div id="results-list"></div>
+        <div id="results-list" class="rep-results bold"></div>
       </section>
 
       <!-- The Modal -->
@@ -76,10 +87,11 @@
           </section>
         </div>
       </div>
-      <!---------------------------------------------------------------------------------------------------------->
-      <!---------------------------------------------------------------------------------------------------------->
-      <!---------------------------------------------------------------------------------------------------------->
     </main>
+    <footer role="footer">&copy Tyler Alder 2020</footer>
+    <!---------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------->
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="index.js"></script>
