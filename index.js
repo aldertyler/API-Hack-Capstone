@@ -139,18 +139,13 @@ function getIndividualVotes(responseJson, repName) {
         url: responseJson.results.votes.vote.url,
         position: responseJson.results.votes.vote.positions[i].vote_position
       });
-
-      //console.log(voteArray);
-      //console.log("ran getIndividualResults");
     }
-    // if (voteArray.length - 1 === i) {
-    //   console.log("finished");
-    //   $(".loader").hide();
-    //   $(".start").show();
-    // }
+    $(".loader").hide();
+    $(".start").show();
   }
   rep = repName.replace(/\s/g, "").replace(/\./g, "");
 }
+
 function watchForm() {
   $("#form").submit(event => {
     event.preventDefault();
@@ -166,12 +161,12 @@ function watchButton(i) {
     let repName = $(`#name.${i}`).text();
     console.log(repName);
     voteArray = [];
-    getRecentVotes(repName);
     generateModal();
-    setTimeout(function() {
-      $(".loader").hide();
-      $(".start").show();
-    }, 8000);
+    getRecentVotes(repName);
+    // setTimeout(function() {
+    //   $(".loader").hide();
+    //   $(".start").show();
+    // }, 4000);
   });
 }
 
@@ -180,13 +175,13 @@ $(".start").click(event => {
   event.preventDefault();
   $(".start-screen").hide();
   generateQuestions();
-
-  $(".loader").show();
-  setTimeout(function() {
-    $(".loader").hide();
-    $(".question-screen").show();
-  }, 5000);
+  // $(".loader").show();
+  // setTimeout(function() {
+  //   $(".loader").hide();
+  //   $(".question-screen").show();
+  // }, 3000);
   showQuestion();
+  $(".question-screen").show();
 });
 
 // watch next button
@@ -202,7 +197,7 @@ $(".question-screen").submit(event => {
   if (currentQuestion >= voteArray.length) {
     $(".question-screen").hide();
     generateResults();
-    console.log("ran generateResults");
+
     $(".results").show();
   }
   showQuestion();
@@ -231,10 +226,6 @@ function generateQuestions() {
       );
     }
   }
-  console.log(questions);
-  console.log(voteArray);
-  console.log(questions.length);
-  console.log(voteArray.length);
 }
 
 function showQuestion() {

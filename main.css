@@ -4,6 +4,7 @@
 
 main {
   font-family: "Inria Sans", sans-serif;
+  font-size: 1.2em;
   background-color: #284a6d;
   padding: 30px;
   color: #041436;
@@ -27,9 +28,9 @@ h1 {
   font-style: italic;
 }
 
-/* .bold {
+.bold {
   font-weight: bold;
-} */
+}
 
 body {
   background-color: #284a6d;
@@ -42,11 +43,7 @@ h2 {
   font-weight: bolder;
 }
 
-main {
-  font-size: 1.2em;
-}
-
-input {
+input[type="text"] {
   width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -93,10 +90,23 @@ li.phone {
 footer {
   background-color: #041436;
   color: #6e88a3;
-  left: 0;
+  position: fixed;
   bottom: 0;
+  margin: auto;
   width: 100%;
   text-align: center;
+}
+
+.question-screen {
+  font-size: 0.8em;
+}
+
+input[type="radio"] {
+  margin: 10px;
+}
+
+.start {
+  margin: 15px;
 }
 
 /* The Modal (background) */
@@ -115,10 +125,11 @@ footer {
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #fefefe;
+  background-color: #236f56;
+  color: 003725;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid #003725;
   width: 80%; /* Could be more or less, depending on screen size */
 }
 
@@ -138,8 +149,8 @@ footer {
 }
 
 .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #6ba793; /* Light grey */
+  border-top: 16px solid #003725; /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;
