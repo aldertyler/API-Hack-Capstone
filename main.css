@@ -33,6 +33,12 @@ h1 {
   font-weight: bold;
 }
 
+.rep-search > p {
+  text-align: center;
+  font-size: 1.3em;
+  margin-bottom: 15px;
+}
+
 body {
   background-color: #6b747f;
 }
