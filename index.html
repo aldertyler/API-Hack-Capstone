@@ -24,19 +24,19 @@
     <header>
       <h1>Members of Congress</h1>
     </header>
-    <main role="main">
+    <main>
       <section class="rep-search">
-        <p id="description" class="italics bold">
+        <h2 id="description" class="italics bold">
           Enter your address to search for your members of Congress.
-        </p>
-        <form role="form" id="form">
+        </h2>
+        <form id="form">
           <input
             id="js-address-input"
             type="text"
             placeholder="Enter your full address here."
             required
           />
-          <button role="button" type="submit">Search</button>
+          <button type="submit">Search</button>
         </form>
 
         <p id="js-error-message" class="error-message"></p>
@@ -56,15 +56,15 @@
         <div class="modal-content">
           <span class="close">&times;</span>
           <section class="start-screen">
-            <p class="bold">
+            <h2 class="bold">
               The following questions will ask you how you would have voted on a
               particular piece of legislation. Answer "Yes" or "No".
-            </p>
+            </h2>
             <button class="start hidden">Start</button>
           </section>
           <div class="loader"></div>
           <section class="question-screen hidden">
-            <h2 id="question-text"></h2>
+            <h2 id="question-text">Question goes here</h2>
             <p class="more-info"></p>
             <form>
               <fieldset>
@@ -88,10 +88,7 @@
         </div>
       </div>
     </main>
-    <footer role="footer">&copy Tyler Alder 2020</footer>
-    <!---------------------------------------------------------------------------------------------------------->
-    <!---------------------------------------------------------------------------------------------------------->
-    <!---------------------------------------------------------------------------------------------------------->
+    <!-- <footer>&copy Tyler Alder 2020</footer> -->
   </body>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
