@@ -18,10 +18,8 @@ let score = 0;
 let rep = "";
 
 function displayResults(responseJson) {
-  // console.log(responseJson);
   $("#results-list").empty();
   for (let i = 0; i < responseJson.officials.length; i++) {
-    console.log(responseJson.officials[i].name);
     if (i === 3) {
       break;
     }
@@ -75,11 +73,10 @@ function displayResults(responseJson) {
 function getResults(userAddress) {
   const address = userAddress.split(" ").join("%20");
   const url = `https://www.googleapis.com/civicinfo/v2/representatives?key=${apiKey}&address=${address}&roles=legislatorLowerBody&roles=legislatorUpperBody`;
-  console.log(url);
+
   fetch(url)
     .then(response => {
       if (response.ok) {
-        //console.log(response.json());
         return response.json();
       }
       throw new Error(response.statusText);
@@ -105,7 +102,6 @@ function getRecentVotes(repName) {
     .catch(err => {
       $("#js-error-message").text(`Something went wrong: ${err.message}`);
     });
-  console.log("ran getRecentVotes" + repName);
 }
 
 //itereate through the response from getRecentVotes and return the individual votes for each roll call number
@@ -140,17 +136,20 @@ function getIndividualVotes(responseJson, repName) {
         position: responseJson.results.votes.vote.positions[i].vote_position
       });
     }
-    $(".loader").hide();
-    $(".start").show();
+    if (i == voteArray.length - 1) {
+      setTimeout(function() {
+        $(".loader").hide();
+        $(".start").show();
+      }, 4000);
+    }
+    rep = repName.replace(/\s/g, "").replace(/\./g, "");
   }
-  rep = repName.replace(/\s/g, "").replace(/\./g, "");
 }
-
 function watchForm() {
   $("#form").submit(event => {
     event.preventDefault();
     const userAddress = $("#js-address-input").val();
-    console.log(userAddress);
+
     getResults(userAddress);
   });
 }
@@ -159,14 +158,10 @@ function watchButton(i) {
   $(`#get-record.${i}`).click(event => {
     event.preventDefault();
     let repName = $(`#name.${i}`).text();
-    console.log(repName);
+
     voteArray = [];
     generateModal();
     getRecentVotes(repName);
-    // setTimeout(function() {
-    //   $(".loader").hide();
-    //   $(".start").show();
-    // }, 4000);
   });
 }
 
@@ -191,7 +186,7 @@ $(".question-screen").submit(event => {
   let selectedAnswer = $("input[name=radio]:checked").val();
   userArray.push(selectedAnswer);
   currentQuestion++;
-  console.log(currentQuestion);
+
   $("input:radio[name=radio]").prop("checked", false);
 
   if (currentQuestion >= voteArray.length) {

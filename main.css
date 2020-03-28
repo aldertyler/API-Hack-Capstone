@@ -3,15 +3,15 @@
 }
 
 main {
-  font-family: "Inria Sans", sans-serif;
+  font-family: "Roboto Mono", monospace;
   font-size: 1.2em;
-  background-color: #284a6d;
+  background-color: #6b747f;
   padding: 30px;
-  color: #041436;
+  color: #141d27;
 }
 
 header {
-  background-color: #041436;
+  background-color: #141d27;
   height: 90px;
   display: flex;
   justify-content: center;
@@ -19,8 +19,9 @@ header {
 }
 
 h1 {
-  font-family: "Abril Fatface", cursive;
-  color: #6e88a3;
+  font-family: "Odibee Sans", cursive;
+  font-weight: bolder;
+  color: #6b747f;
   font-size: 2.5em;
 }
 
@@ -33,7 +34,7 @@ h1 {
 }
 
 body {
-  background-color: #284a6d;
+  background-color: #6b747f;
 }
 
 h2 {
@@ -65,7 +66,8 @@ button {
   flex-direction: column;
   align-items: center;
   /* border: 1px solid gray; */
-  background-color: #456687;
+  background-color: #505964;
+  color: #141d27;
   margin: 10px;
   padding: 10px;
   border-radius: 2%;
@@ -85,16 +87,6 @@ li.phone {
 
 .hidden {
   display: none;
-}
-
-footer {
-  background-color: #041436;
-  color: #6e88a3;
-  position: fixed;
-  bottom: 0;
-  margin: auto;
-  width: 100%;
-  text-align: center;
 }
 
 .question-screen {
@@ -119,17 +111,17 @@ input[type="radio"] {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  /* background-color: rgb(0, 0, 0); 
+  background-color: rgba(0, 0, 0, 0.4); Black w/ opacity */
 }
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #236f56;
-  color: 003725;
+  background-color: #141d27;
+  color: #6b747f;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #003725;
+  border: 1px solid #141d27;
   width: 80%; /* Could be more or less, depending on screen size */
 }
 
@@ -149,8 +141,8 @@ input[type="radio"] {
 }
 
 .loader {
-  border: 16px solid #6ba793; /* Light grey */
-  border-top: 16px solid #003725; /* Blue */
+  border: 16px solid white; /* Light grey */
+  border-top: 16px solid black; /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;
