@@ -27,9 +27,9 @@
     <main>
       <section class="rep-search">
         <h2 id="description" class=" bold">
-          Are you curious if your members of Congress deserve to be re-elected?
+          Are you curious if your members of Congress deserve to be reelected?
         </h2>
-        <p class="bold ">Let's find out.</p>
+        <p class="bold italics ">Let's find out.</p>
 
         <form id="form">
           <label class="bold"
@@ -42,14 +42,14 @@
             placeholder="Enter your full address here."
             required
           />
-          <button type="submit">Search</button>
+          <input type="submit" value="Search" class="submit"></input>
         </form>
 
         <p id="js-error-message" class="error-message"></p>
       </section>
       <section id="results" class=" hidden">
         <h2 class="your-reps bold">Your Representatives</h2>
-        <p class="italics bold">
+        <p class="bold">
           Click 'How do you compare' to find out how you align politically with
           a particular member of Congress.
         </p>
@@ -64,13 +64,13 @@
           <section class="start-screen">
             <h2 class="bold">
               The following questions will ask you how you would have voted on a
-              particular piece of legislation. Answer "Yes" or "No".
+              particular piece of legislation. Click 'start' to begin.
             </h2>
             <button class="start hidden">Start</button>
           </section>
           <div class="loader"></div>
           <section class="question-screen hidden">
-            <h2 id="question-text">Question goes here</h2>
+            <h2 id="question-text" class="question-text">Question goes here</h2>
             <p class="more-info"></p>
             <form>
               <fieldset>

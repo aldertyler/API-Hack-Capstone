@@ -54,10 +54,30 @@ input[type="text"] {
   width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
+  padding: 5px;
+  font-family: "Roboto Mono", monospace;
 }
 
 button {
+  background-color: #1d2329;
+  color: #6b747f;
+  border: 1px solid #1d2329;
+  padding: 5px;
+  font-family: "Roboto Mono", monospace;
   margin-bottom: 15px;
+}
+
+.start {
+  background-color: #6b747f;
+  color: #141d27;
+  border: 1px solid #6b747f;
+}
+
+input[value="next"] {
+  background-color: #6b747f;
+  color: #141d27;
+  border: 1px solid #6b747f;
+  padding: 5px;
 }
 
 .rep-results {
@@ -100,11 +120,35 @@ li.phone {
 }
 
 input[type="radio"] {
-  margin: 10px;
+  margin: 20px;
+}
+
+.submit {
+  background-color: #1d2329;
+  color: #6b747f;
+  border: 1px solid #1d2329;
+  padding: 5px;
+  font-family: "Roboto Mono", monospace;
 }
 
 .start {
   margin: 15px;
+}
+
+a {
+  float: right;
+}
+
+a:link {
+  color: #0073cb;
+}
+
+a:visited {
+  color: #00d468;
+}
+
+.question-text {
+  text-align: left;
 }
 
 /* The Modal (background) */
@@ -147,8 +191,8 @@ input[type="radio"] {
 }
 
 .loader {
-  border: 16px solid white; /* Light grey */
-  border-top: 16px solid black; /* Blue */
+  border: 16px solid #6e6854; /* Light grey */
+  border-top: 16px solid #3e3a2b; /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;
