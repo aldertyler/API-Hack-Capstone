@@ -17,13 +17,13 @@ let currentQuestion = 0;
 let score = 0;
 let rep = "";
 
+//displays the users members of congress based on the address they submitted
 function displayResults(responseJson) {
   $("#results-list").empty();
   for (let i = 0; i < responseJson.officials.length; i++) {
     if (i === 3) {
       break;
     }
-
     $("#results-list").append(
       `<ul class="reps">
       <li class="title">
@@ -70,10 +70,10 @@ function displayResults(responseJson) {
   $("#results").removeClass("hidden");
 }
 
+//makes an api call based on the address supplied by the user
 function getResults(userAddress) {
   const address = userAddress.split(" ").join("%20");
   const url = `https://www.googleapis.com/civicinfo/v2/representatives?key=${apiKey}&address=${address}&roles=legislatorLowerBody&roles=legislatorUpperBody`;
-
   fetch(url)
     .then(response => {
       if (response.ok) {
@@ -110,7 +110,6 @@ function getRecentVotes(repName) {
 function getRollCallVote(responseJson, repName) {
   for (let i = 0; i < responseJson.results.votes.length; i++) {
     const rollCallUrl = `https://api.propublica.org/congress/v1/${responseJson.results.votes[i].congress}/${responseJson.results.votes[i].chamber}/sessions/${responseJson.results.votes[i].session}/votes/${responseJson.results.votes[i].roll_call}.json`;
-
     fetch(rollCallUrl, options)
       .then(response => {
         if (response.ok) {
@@ -127,7 +126,6 @@ function getRollCallVote(responseJson, repName) {
 }
 
 //returns the specific reps position from the response from getRollCallVote and adds the results to the voteArray
-
 function getIndividualVotes(responseJson, repName) {
   for (let i = 0; i < responseJson.results.votes.vote.positions.length; i++) {
     if (repName.trim() == responseJson.results.votes.vote.positions[i].name) {
@@ -148,20 +146,21 @@ function getIndividualVotes(responseJson, repName) {
     rep = repName.replace(/\s/g, "").replace(/\./g, "");
   }
 }
+
+//watch for the user to submit their address
 function watchForm() {
   $("#form").submit(event => {
     event.preventDefault();
     const userAddress = $("#js-address-input").val();
-
     getResults(userAddress);
   });
 }
 
+//watch for the user to click 'how do you compare'
 function watchButton(i) {
   $(`#get-record.${i}`).click(event => {
     event.preventDefault();
     let repName = $(`#name.${i}`).text();
-
     voteArray = [];
     generateModal();
     getRecentVotes(repName);
@@ -173,11 +172,6 @@ $(".start").click(event => {
   event.preventDefault();
   $(".start-screen").hide();
   generateQuestions();
-  // $(".loader").show();
-  // setTimeout(function() {
-  //   $(".loader").hide();
-  //   $(".question-screen").show();
-  // }, 3000);
   showQuestion();
   $(".question-screen").show();
 });
@@ -185,22 +179,19 @@ $(".start").click(event => {
 // watch next button
 $(".question-screen").submit(event => {
   event.preventDefault();
-
   let selectedAnswer = $("input[name=radio]:checked").val();
   userArray.push(selectedAnswer);
   currentQuestion++;
-
   $("input:radio[name=radio]").prop("checked", false);
-
   if (currentQuestion >= voteArray.length) {
     $(".question-screen").hide();
     generateResults();
-
     $(".results").show();
   }
   showQuestion();
 });
 
+//generate the percentage of alignment between the user and the representative
 function generateResults() {
   for (let i = 0; i < voteArray.length; i++) {
     if (userArray[i] == voteArray[i].position) {
@@ -214,6 +205,7 @@ function generateResults() {
   $(`.${rep}`).text(`${percentage}% Aligned`);
 }
 
+//generate questions for the user
 function generateQuestions() {
   for (let i = 0; i < voteArray.length; i++) {
     if (voteArray[i].id == undefined) {
@@ -226,6 +218,7 @@ function generateQuestions() {
   }
 }
 
+//change the state of #question-text and display it for the user
 function showQuestion() {
   $("#question-text").text(`${questions[currentQuestion]}`);
   $(".more-info").text("");
@@ -236,9 +229,10 @@ function showQuestion() {
   }
 }
 
+//Creates the modal where the questions are displayed
 function generateModal() {
   let modal = document.getElementById("myModal");
-  // // Get the <span> element that closes the modal
+  // Get the <span> element that closes the modal
   let span = document.getElementsByClassName("close")[0];
   // open the modal
   modal.style.display = "block";
