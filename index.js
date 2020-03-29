@@ -84,6 +84,7 @@ function getResults(userAddress) {
     .then(responseJson => displayResults(responseJson))
     .catch(err => {
       $("#js-error-message").text(`Something went wrong: ${err.message}`);
+      $(".error-message").show();
     });
 }
 
@@ -101,6 +102,7 @@ function getRecentVotes(repName) {
     .then(responseJson => getRollCallVote(responseJson, repName))
     .catch(err => {
       $("#js-error-message").text(`Something went wrong: ${err.message}`);
+      $(".error-message").show();
     });
 }
 
@@ -119,6 +121,7 @@ function getRollCallVote(responseJson, repName) {
       .then(responseJson => getIndividualVotes(responseJson, repName))
       .catch(err => {
         $("#js-error-message").text(`Something went wrong: ${err.message}`);
+        $(".error-message").show();
       });
   }
 }
