@@ -29,10 +29,10 @@
         <h2 id="description" class=" bold">
           Are you curious if your members of Congress deserve to be reelected?
         </h2>
-        <p class="bold italics ">Let's find out.</p>
+        <h3 class="bold italics ">Let's find out.</h3>
 
         <form id="form">
-          <label class="bold"
+          <label for="js-address-input" class="bold"
             >Enter your address to search for the members of Congress who
             represent you.</label
           >
@@ -42,10 +42,10 @@
             placeholder="Enter your full address here."
             required
           />
-          <input type="submit" value="Search" class="submit"></input>
+          <input type="submit" value="Search" class="submit" />
         </form>
 
-        <p id="js-error-message" class="error-message"></p>
+        <h2 id="js-error-message" class="error-message"></h2>
       </section>
       <section id="results" class=" hidden">
         <h2 class="your-reps bold">Your Representatives</h2>
@@ -75,11 +75,23 @@
             <form>
               <fieldset>
                 <div>
-                  <input id="radio-1" type="radio" name="radio" value="Yes" required />
+                  <input
+                    id="radio-1"
+                    type="radio"
+                    name="radio"
+                    value="Yes"
+                    required
+                  />
                   <label for="radio-1">Yes</label>
                 </div>
                 <div>
-                  <input id="radio-2" type="radio" name="radio" value="No" required />
+                  <input
+                    id="radio-2"
+                    type="radio"
+                    name="radio"
+                    value="No"
+                    required
+                  />
                   <label for="radio-2">No</label>
                 </div>
                 <input type="submit" value="next" />
