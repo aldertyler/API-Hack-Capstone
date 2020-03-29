@@ -1,3 +1,6 @@
+**Voting Made Simple**
+
+
 Voting Made Simple is an app that alows the user to make informed decisions regarding their elected representatives.
 
 Initially the user is directed to enter their address in order to search for the members of Congress that represent them.
@@ -47,3 +50,9 @@ The quiz can be repeated for each representative. After each quiz, the percentag
 
 <img src="images/final-results.jpg"
       />
+      
+      
+**Built with**
+html
+css
+javascript
