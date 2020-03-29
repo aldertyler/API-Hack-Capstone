@@ -5,13 +5,13 @@
 main {
   font-family: "Roboto Mono", monospace;
   font-size: 1.2em;
-  background-color: #6b747f;
+  background-color: #a0a0a0;
   padding: 30px;
-  color: #141d27;
+  color: #2f2f2f;
 }
 
 header {
-  background-color: #141d27;
+  background-color: #040404;
   height: 90px;
   display: flex;
   justify-content: center;
@@ -21,7 +21,7 @@ header {
 h1 {
   font-family: "Odibee Sans", cursive;
   font-weight: bolder;
-  color: #6b747f;
+  color: #858585;
   font-size: 2.5em;
 }
 
@@ -40,7 +40,7 @@ h1 {
 }
 
 body {
-  background-color: #6b747f;
+  background-color: #a0a0a0;
 }
 
 h2 {
@@ -59,24 +59,24 @@ input[type="text"] {
 }
 
 button {
-  background-color: #1d2329;
-  color: #6b747f;
-  border: 1px solid #1d2329;
+  background-color: #777777;
+  color: #060606;
+  border: 1px solid #060606;
   padding: 5px;
   font-family: "Roboto Mono", monospace;
   margin-bottom: 15px;
 }
 
 .start {
-  background-color: #6b747f;
-  color: #141d27;
-  border: 1px solid #6b747f;
+  background-color: #2f2f2f;
+  color: #cccbcb;
+  border: 1px solid #474747;
 }
 
 input[value="next"] {
-  background-color: #6b747f;
-  color: #141d27;
-  border: 1px solid #6b747f;
+  background-color: #2f2f2f;
+  color: #cccbcb;
+  border: 1px solid #474747;
   padding: 5px;
 }
 
@@ -91,12 +91,11 @@ input[value="next"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid gray; */
-  background-color: #505964;
-  color: #141d27;
-  margin: 10px;
+  border: 1px solid #060606;
+  background-color: #474747;
+  color: #cccbcb;
+  margin: 20px;
   padding: 10px;
-  border-radius: 2%;
 }
 
 .full-name {
@@ -124,9 +123,9 @@ input[type="radio"] {
 }
 
 .submit {
-  background-color: #1d2329;
-  color: #6b747f;
-  border: 1px solid #1d2329;
+  background-color: #2f2f2f;
+  color: #cccbcb;
+  border: 1px solid #474747;
   padding: 5px;
   font-family: "Roboto Mono", monospace;
 }
@@ -140,11 +139,11 @@ a {
 }
 
 a:link {
-  color: #0073cb;
+  color: #0baaff;
 }
 
 a:visited {
-  color: #00d468;
+  color: #005888;
 }
 
 .question-text {
@@ -167,17 +166,17 @@ a:visited {
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #141d27;
-  color: #6b747f;
+  background-color: #cccbcb;
+  color: #474747;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #141d27;
+  border: 1px solid #060606;
   width: 80%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
 .close {
-  color: #aaa;
+  color: #474747;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -185,14 +184,14 @@ a:visited {
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: #060606;
   text-decoration: none;
   cursor: pointer;
 }
 
 .loader {
-  border: 16px solid #6e6854; /* Light grey */
-  border-top: 16px solid #3e3a2b; /* Blue */
+  border: 16px solid #474747; /* Light grey */
+  border-top: 16px solid #060606; /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;
