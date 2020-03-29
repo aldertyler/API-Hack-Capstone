@@ -1,5 +1,7 @@
 **Voting Made Simple**
 
+https://aldertyler.github.io/voting-made-simple/
+
 Voting Made Simple is an app that allows the user to make informed decisions regarding their elected representatives.
 
 Initially the user is directed to enter their address in order to search for the members of Congress that represent them.
