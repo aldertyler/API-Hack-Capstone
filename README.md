@@ -52,7 +52,5 @@ The quiz can be repeated for each representative. After each quiz, the percentag
       />
       
       
-**Built with:**
-1.html
-2.css
-3.javascript
+**Built with:** html, css, javascript.
+
