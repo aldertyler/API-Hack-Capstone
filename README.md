@@ -43,5 +43,7 @@ After completing the quiz, the users answers are compared with how their represe
       
       
 The quiz can be repeated for each representative. After each quiz, the percentage match is displayed under the representative.
+
+
 <img src="images/final-results.jpg"
       />
