@@ -10,12 +10,14 @@ const options = {
   })
 };
 
-let voteArray = [];
-let userArray = [];
-let questions = [];
-let currentQuestion = 0;
-let score = 0;
-let rep = "";
+let STORE = {
+  voteArray: [],
+  userArray: [],
+  questions: [],
+  currentQuestion: 0,
+  score: 0,
+  rep: ""
+};
 
 //displays the users members of congress based on the address they submitted
 function displayResults(responseJson) {
@@ -32,7 +34,7 @@ function displayResults(responseJson) {
         </li>
         <li class="photo"><img src=${responseJson.officials[i].photoUrl} alt="${
         responseJson.officials[i].name
-      }" style="width: 175px; height: 175px;"></li>
+      }" style="width: 175px; height: 200px;"></li>
         <li class="address">
             <ul>
                 <li>${
@@ -129,7 +131,7 @@ function getRollCallVote(responseJson, repName) {
 function getIndividualVotes(responseJson, repName) {
   for (let i = 0; i < responseJson.results.votes.vote.positions.length; i++) {
     if (repName.trim() == responseJson.results.votes.vote.positions[i].name) {
-      voteArray.push({
+      STORE.voteArray.push({
         id: responseJson.results.votes.vote.bill.number,
         title: responseJson.results.votes.vote.bill.title,
         description: responseJson.results.votes.vote.description,
@@ -137,13 +139,13 @@ function getIndividualVotes(responseJson, repName) {
         position: responseJson.results.votes.vote.positions[i].vote_position
       });
     }
-    if (i == voteArray.length - 1) {
+    if (i == STORE.voteArray.length - 1) {
       setTimeout(function() {
         $(".loader").hide();
         $(".start").show();
       }, 4000);
     }
-    rep = repName.replace(/\s/g, "").replace(/\./g, "");
+    STORE.rep = repName.replace(/\s/g, "").replace(/\./g, "");
   }
 }
 
@@ -161,7 +163,7 @@ function watchButton(i) {
   $(`#get-record.${i}`).click(event => {
     event.preventDefault();
     let repName = $(`#name.${i}`).text();
-    voteArray = [];
+    STORE.voteArray = [];
     generateModal();
     getRecentVotes(repName);
   });
@@ -180,10 +182,10 @@ $(".start").click(event => {
 $(".question-screen").submit(event => {
   event.preventDefault();
   let selectedAnswer = $("input[name=radio]:checked").val();
-  userArray.push(selectedAnswer);
-  currentQuestion++;
+  STORE.userArray.push(selectedAnswer);
+  STORE.currentQuestion++;
   $("input:radio[name=radio]").prop("checked", false);
-  if (currentQuestion >= voteArray.length) {
+  if (STORE.currentQuestion >= STORE.voteArray.length) {
     $(".question-screen").hide();
     generateResults();
     $(".results").show();
@@ -193,26 +195,28 @@ $(".question-screen").submit(event => {
 
 //generate the percentage of alignment between the user and the representative
 function generateResults() {
-  for (let i = 0; i < voteArray.length; i++) {
-    if (userArray[i] == voteArray[i].position) {
-      score++;
+  for (let i = 0; i < STORE.voteArray.length; i++) {
+    if (STORE.userArray[i] == STORE.voteArray[i].position) {
+      STORE.score++;
     }
   }
-  let percentage = Math.floor((score / voteArray.length) * 100);
+  let percentage = Math.floor((STORE.score / STORE.voteArray.length) * 100);
   $(".results").append(
     `<p class="percentage">You are ${percentage}% aligned with this member of Congress.</p>`
   );
-  $(`.${rep}`).text(`${percentage}% Aligned`);
+  $(`.${STORE.rep}`).text(`${percentage}% Aligned`);
 }
 
 //generate questions for the user
 function generateQuestions() {
-  for (let i = 0; i < voteArray.length; i++) {
-    if (voteArray[i].id == undefined) {
-      questions.push(`How would you vote on "${voteArray[i].description}"?`);
+  for (let i = 0; i < STORE.voteArray.length; i++) {
+    if (STORE.voteArray[i].id == undefined) {
+      STORE.questions.push(
+        `How would you vote on "${STORE.voteArray[i].description}"?`
+      );
     } else {
-      questions.push(
-        `How would you vote on ${voteArray[i].id}: ${voteArray[i].description}?`
+      STORE.questions.push(
+        `How would you vote on ${STORE.voteArray[i].id}: ${STORE.voteArray[i].description}?`
       );
     }
   }
@@ -220,11 +224,13 @@ function generateQuestions() {
 
 //change the state of #question-text and display it for the user
 function showQuestion() {
-  $("#question-text").text(`${questions[currentQuestion]}`);
+  $("#question-text").text(`${STORE.questions[STORE.currentQuestion]}`);
   $(".more-info").text("");
-  if (currentQuestion < voteArray.length) {
+  if (STORE.currentQuestion < STORE.voteArray.length) {
     $(".more-info").append(
-      `<a href="${voteArray[currentQuestion].url}" target="blank">For more information</a>`
+      `<a href="${
+        STORE.voteArray[STORE.currentQuestion].url
+      }" target="blank">For more information</a>`
     );
   }
 }
@@ -239,11 +245,11 @@ function generateModal() {
   // // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     modal.style.display = "none";
-    voteArray = [];
-    userArray = [];
-    questions = [];
-    currentQuestion = 0;
-    score = 0;
+    STORE.voteArray = [];
+    STORE.userArray = [];
+    STORE.questions = [];
+    STORE.currentQuestion = 0;
+    STORE.score = 0;
     $(".results").hide();
     $(".start-screen").show();
     $(".question-screen").hide();
@@ -255,11 +261,11 @@ function generateModal() {
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
-      voteArray = [];
-      userArray = [];
-      questions = [];
-      currentQuestion = 0;
-      score = 0;
+      STORE.voteArray = [];
+      STORE.userArray = [];
+      STORE.questions = [];
+      STORE.currentQuestion = 0;
+      STORE.score = 0;
       $(".results").hide();
       $(".start-screen").show();
       $(".question-screen").hide();
