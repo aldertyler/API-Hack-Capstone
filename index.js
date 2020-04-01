@@ -81,6 +81,7 @@ function displayResults(responseJson) {
 
 //makes an api call based on the address supplied by the user
 function getResults(userAddress) {
+  $(".error-message").hide();
   const address = userAddress.split(" ").join("%20");
   const url = `https://www.googleapis.com/civicinfo/v2/representatives?key=${apiKey}&address=${address}&roles=legislatorLowerBody&roles=legislatorUpperBody`;
   fetch(url)
