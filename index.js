@@ -35,7 +35,7 @@ function displayResults(responseJson) {
         <li class="photo">
         <img src=${
           responseJson.officials[i].photoUrl == undefined
-            ? "https://via.placeholder.com/150x200?text=photo+unavailable"
+            ? "http://placehold.jp/10/150x100.png?text=Image+Unavailable"
             : responseJson.officials[i].photoUrl
         } alt="${
         responseJson.officials[i].name
