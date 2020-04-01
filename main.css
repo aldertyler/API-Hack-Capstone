@@ -139,11 +139,7 @@ a {
 }
 
 a:link {
-  color: #0baaff;
-}
-
-a:visited {
-  color: #005888;
+  color: #002b42;
 }
 
 .question-text {
@@ -166,6 +162,7 @@ a:visited {
 
 /* Modal Content/Box */
 .modal-content {
+  font-size: 0.6em;
   background-color: #cccbcb;
   color: #474747;
   margin: 15% auto; /* 15% from the top and centered */
@@ -213,5 +210,8 @@ a:visited {
     flex-direction: row;
     justify-content: space-around;
     /* align-items: center; */
+  }
+  .modal-content {
+    font-size: 0.8em;
   }
 }

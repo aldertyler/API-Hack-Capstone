@@ -10,7 +10,7 @@ const options = {
   })
 };
 
-let STORE = {
+const STORE = {
   voteArray: [],
   userArray: [],
   questions: [],
@@ -32,7 +32,12 @@ function displayResults(responseJson) {
          ${i < 2 ? "U.S. Senator" : "U.S. Representative"}</li>
          <li id="name" class="${i}"> ${responseJson.officials[i].name}
         </li>
-        <li class="photo"><img src=${responseJson.officials[i].photoUrl} alt="${
+        <li class="photo">
+        <img src=${
+          responseJson.officials[i].photoUrl == undefined
+            ? "https://via.placeholder.com/150x200?text=photo+unavailable"
+            : responseJson.officials[i].photoUrl
+        } alt="${
         responseJson.officials[i].name
       }" style="width: 175px; height: 200px;"></li>
         <li class="address">
@@ -237,9 +242,9 @@ function showQuestion() {
 
 //Creates the modal where the questions are displayed
 function generateModal() {
-  let modal = document.getElementById("myModal");
+  const modal = document.getElementById("myModal");
   // Get the <span> element that closes the modal
-  let span = document.getElementsByClassName("close")[0];
+  const span = document.getElementsByClassName("close")[0];
   // open the modal
   modal.style.display = "block";
   // // When the user clicks on <span> (x), close the modal
