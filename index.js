@@ -30,7 +30,7 @@ function displayResults(responseJson) {
       `<ul class="reps">
       <li class="title">
          ${i < 2 ? "U.S. Senator" : "U.S. Representative"}</li>
-         <li id="name" class="${i}"> ${responseJson.officials[i].name}
+         <li id="name-${i}" > ${responseJson.officials[i].name}
         </li>
         <li class="photo">
         <img src=${
@@ -65,7 +65,9 @@ function displayResults(responseJson) {
             </ul>   
         </li>
         <li class="phone">${responseJson.officials[i].phones}</li>
-        <button id="get-record" class="${i}">How do you compare</button>
+        <li>
+        <button id="get-record-${i}" >How do you compare</button>
+        </li>
         <li class="${responseJson.officials[i].name
           .replace(/\s/g, "")
           .replace(/\./g, "")}"></li>
@@ -165,9 +167,9 @@ function watchForm() {
 
 //watch for the user to click 'how do you compare'
 function watchButton(i) {
-  $(`#get-record.${i}`).click(event => {
+  $(`#get-record-${i}`).click(event => {
     event.preventDefault();
-    let repName = $(`#name.${i}`).text();
+    let repName = $(`#name-${i}`).text();
     STORE.voteArray = [];
     generateModal();
     getRecentVotes(repName);
