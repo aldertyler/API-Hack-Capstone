@@ -82,6 +82,7 @@ function displayResults(responseJson) {
 //makes an api call based on the address supplied by the user
 function getResults(userAddress) {
   $(".error-message").hide();
+  $("#results").show();
   const address = userAddress.split(" ").join("%20");
   const url = `https://www.googleapis.com/civicinfo/v2/representatives?key=${apiKey}&address=${address}&roles=legislatorLowerBody&roles=legislatorUpperBody`;
   fetch(url)
@@ -95,6 +96,7 @@ function getResults(userAddress) {
     .catch(err => {
       $("#js-error-message").text(`Something went wrong: ${err.message}`);
       $(".error-message").show();
+      $("#results").hide();
     });
 }
 
