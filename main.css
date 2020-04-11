@@ -106,8 +106,20 @@ input[value="next"] {
   margin-bottom: 30px;
 }
 
-li.phone {
+.phone {
   margin-bottom: 15px;
+}
+
+.phone:hover {
+  transform: scale(1.2);
+}
+
+.submit:hover {
+  cursor: pointer;
+}
+
+.white {
+  color: rgb(255, 255, 255);
 }
 
 .hidden {
@@ -136,9 +148,10 @@ input[type="radio"] {
 
 a {
   float: right;
+  text-decoration: none;
 }
 
-a:link {
+.link-color {
   color: #002b42;
 }
 

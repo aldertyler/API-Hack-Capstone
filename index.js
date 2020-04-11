@@ -64,9 +64,9 @@ function displayResults(responseJson) {
                 }</li>
             </ul>   
         </li>
-        <li class="phone"><a href="tel:${responseJson.officials[i].phones}">${
-        responseJson.officials[i].phones
-      }</a></li>
+        <li class="phone"><a href="tel:${
+          responseJson.officials[i].phones
+        }" class="white" >${responseJson.officials[i].phones}</a></li>
         <li>
         <button id="get-record-${i}" >How do you compare</button>
         </li>
@@ -240,7 +240,7 @@ function showQuestion() {
   $(".more-info").text("");
   if (STORE.currentQuestion < STORE.voteArray.length) {
     $(".more-info").append(
-      `<a href="${
+      `<a  href="${
         STORE.voteArray[STORE.currentQuestion].url
       }" target="blank">For more information</a>`
     );
